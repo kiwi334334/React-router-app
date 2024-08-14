@@ -17,7 +17,11 @@ function PostComponent() {
 	return (
 		<div>
 			Post ID: {postId}
-			<h1>{post.title}</h1>
+			<br />
+			<div>
+				<h1 className="text-[40px]">{post.title}</h1>
+				<p>{post.body}</p>
+			</div>
 		</div>
 	);
 }

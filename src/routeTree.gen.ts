@@ -14,6 +14,8 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as UsersUserIdImport } from './routes/users/$userId'
 import { Route as PostsPostIdImport } from './routes/posts/$postId'
+import { Route as CreateUserImport } from './routes/create/user'
+import { Route as CreatePostImport } from './routes/create/post'
 
 // Create/Update Routes
 
@@ -32,6 +34,16 @@ const PostsPostIdRoute = PostsPostIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const CreateUserRoute = CreateUserImport.update({
+  path: '/create/user',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CreatePostRoute = CreatePostImport.update({
+  path: '/create/post',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -41,6 +53,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/create/post': {
+      id: '/create/post'
+      path: '/create/post'
+      fullPath: '/create/post'
+      preLoaderRoute: typeof CreatePostImport
+      parentRoute: typeof rootRoute
+    }
+    '/create/user': {
+      id: '/create/user'
+      path: '/create/user'
+      fullPath: '/create/user'
+      preLoaderRoute: typeof CreateUserImport
       parentRoute: typeof rootRoute
     }
     '/posts/$postId': {
@@ -64,6 +90,8 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
+  CreatePostRoute,
+  CreateUserRoute,
   PostsPostIdRoute,
   UsersUserIdRoute,
 })
@@ -77,12 +105,20 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/create/post",
+        "/create/user",
         "/posts/$postId",
         "/users/$userId"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/create/post": {
+      "filePath": "create/post.tsx"
+    },
+    "/create/user": {
+      "filePath": "create/user.tsx"
     },
     "/posts/$postId": {
       "filePath": "posts/$postId.tsx"

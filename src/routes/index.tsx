@@ -6,7 +6,6 @@ export const Route = createFileRoute("/")({
 	loader: () => queryClient.ensureQueryData(postsQueryOptions),
 });
 
-import "../main.css";
 import { queryClient } from "../main";
 import { postsQueryOptions } from "../queryOptions";
 
